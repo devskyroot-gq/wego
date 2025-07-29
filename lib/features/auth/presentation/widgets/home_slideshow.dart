@@ -61,8 +61,7 @@ class HomeSlideshow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.background,
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.only(left: 20, right: 20),
       child: CarouselSlider(
           options: CarouselOptions(
             initialPage: 0,

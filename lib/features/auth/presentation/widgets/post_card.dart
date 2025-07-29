@@ -1,43 +1,53 @@
-import 'package:demo_pss/features/auth/presentation/widgets/row_container_icon.dart';
+import 'package:demo_pss/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class PostCard extends StatelessWidget {
-  const PostCard({super.key});
+  final String img;
+  final String title;
+  final String subtitle;
+  const PostCard({super.key,  this.img="assets/images/user.png", required this.title, required this.subtitle});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      width: double.maxFinite,
-      color: Colors.grey,
-      padding: EdgeInsets.all(10.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
+    return Padding(
+      padding: EdgeInsets.only(top: 10, left: 20, right: 20),
+      child: Container(
+        padding: EdgeInsets.all(4.0),
+        decoration: BoxDecoration(
+          color: Colors.grey.shade300,
+          borderRadius: BorderRadius.circular(15)
+        ),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                RowContainerIcon(text: "Ubicacion", icon: Icon(Icons.location_on_rounded),),
-                RowContainerIcon(text: "Destino", icon: Icon(Icons.stop),),
-                RowContainerIcon(text: "Precio", icon: Icon(Icons.money_rounded),)
-              ],
+            Container(
+              padding: const EdgeInsets.only(left: 4),
+              height: 60,
+              width: 60,
+              child: CircleAvatar(
+                backgroundImage: AssetImage(img),
+              ),
             ),
             Expanded(
-              child: Container(
-                width: double.maxFinite,
-              )
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(title, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary2),),
+                    Text(subtitle, style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: AppColors.textPrimary2),)
+                  ]
+                ),
+              ),
             ),
             Container(
-              width: 100,
-              height: 100,
-              color: Colors.lightGreen,
-              child: Center(
-                child: Icon(Icons.hail_rounded),
-              ),
+              alignment: Alignment.centerRight,
+              height: 60,
+              width: 60,
+              padding: EdgeInsets.only(left: 4),
+              child: Icon(Icons.keyboard_arrow_right_outlined, size: 40, color: AppColors.textSecondary,),
             )
           ],
         ),

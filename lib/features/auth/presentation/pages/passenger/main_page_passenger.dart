@@ -1,26 +1,25 @@
 import 'package:demo_pss/core/theme/app_colors.dart';
-import 'package:demo_pss/features/auth/presentation/pages/activity_page.dart';
-import 'package:demo_pss/features/auth/presentation/pages/home_page.dart';
-import 'package:demo_pss/features/auth/presentation/pages/services_page.dart';
-import 'package:demo_pss/features/auth/presentation/pages/user_page.dart';
-import 'package:demo_pss/features/auth/presentation/widgets/app_large_text.dart';
+import 'package:demo_pss/features/auth/presentation/pages/passenger/activity_page_passenger.dart';
+import 'package:demo_pss/features/auth/presentation/pages/passenger/home_page_passenger.dart';
+import 'package:demo_pss/features/auth/presentation/pages/passenger/services_page_passenger.dart';
+import 'package:demo_pss/features/auth/presentation/pages/passenger/user_page_passenger.dart';
 import 'package:flutter/material.dart';
 
-class MainPage extends StatefulWidget {
-  static final GlobalKey<_MainPageState> globalKey = GlobalKey();
-  MainPage({Key? key}) : super(key: globalKey);
+class MainPagePassenger extends StatefulWidget {
+  static final GlobalKey<_MainPagePassengerState> globalKey = GlobalKey();
+  MainPagePassenger({Key? key}) : super(key: globalKey);
 
   @override
-  State<MainPage> createState() => _MainPageState();
+  State<MainPagePassenger> createState() => _MainPagePassengerState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainPagePassengerState extends State<MainPagePassenger> {
 
   List pages = [
-    HomePage(),
-    ServicesPage(),
-    ActivityPage(),
-    UserPage()
+    HomePagePassenger(),
+    ServicesPagePassenger(),
+    ActivityPagePassenger(),
+    UserPagePassenger()
   ];
 
   final PageController _pageController = PageController(initialPage: 0);

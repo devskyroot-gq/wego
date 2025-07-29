@@ -2,11 +2,11 @@ import 'package:demo_pss/features/auth/presentation/widgets/activity_card.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/app_large_text.dart';
 import 'package:flutter/material.dart';
 
-class ActivityPage extends StatefulWidget {
-  const ActivityPage({super.key});
+class ActivityPagePassenger extends StatefulWidget {
+  const ActivityPagePassenger({super.key});
 
   @override
-  State<ActivityPage> createState() => _ActivityPageState();
+  State<ActivityPagePassenger> createState() => _ActivityPagePassengerState();
 }
 
 final List<String> users = [
@@ -29,7 +29,7 @@ final List<String> usersDestination = [
 
 ];
 
-class _ActivityPageState extends State<ActivityPage> with TickerProviderStateMixin {
+class _ActivityPagePassengerState extends State<ActivityPagePassenger> with TickerProviderStateMixin {
 
 
   @override

@@ -7,48 +7,30 @@ import 'package:demo_pss/features/auth/presentation/widgets/post_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomePagePassenger extends StatefulWidget {
+  const HomePagePassenger({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePagePassenger> createState() => _HomePagePassengerState();
 }
 
 final List<String> users = [
-  "Usuario 1",
-  "Usuario 2",
-  "Usuario 3",
-  "Usuario 4",
-  "Usuario 5",
-  "Usuario 6",
-  "Usuario 7",
-  "Usuario 8",
+  "Nombre de usuario",
+  "Nombre de usuario",
 ];
 
 final List<String> usersDestination = [
   "Los Angeles",
   "Semu",
-  "Santa Maria III",
-  "Ela Nguema",
-  "San Juan",
-  "Fistown",
-  "Hassan II",
-  "Sumco",
 ];
 
 final List<String> usersLocation = [
-  "Ubicacion uno",
-  "Ubicacion dos",
-  "Ubicacion tres",
-  "Ela Nguema",
-  "San Juan",
-  "Fistown",
   "Hassan II",
   "Sumco",
 ];
 
 
-class _HomePageState extends State<HomePage> {
+class _HomePagePassengerState extends State<HomePagePassenger> {
 
   @override
   void initState() {
@@ -78,30 +60,7 @@ class _HomePageState extends State<HomePage> {
             color: AppColors.textPrimary,
           ),
         ),
-        // actions: [
-        //   Padding(
-        //     padding: EdgeInsets.only(left: 10, top: 4, right: 10, bottom: 4),
-        //     child: InkWell(
-        //       onTap: () {},
-        //       child: Icon(
-        //         Icons.refresh_rounded,
-        //         size: 28,
-        //         color: AppColors.textPrimary,
-        //       ),
-        //     ),
-        //   ),
-        //   Padding(
-        //     padding: EdgeInsets.all(10.0),
-        //     child: InkWell(
-        //       onTap: () {},
-        //       child: Icon(
-        //         Icons.settings,
-        //         size: 28,
-        //         color: AppColors.textPrimary,
-        //       ),
-        //     ),
-        //   ),
-        // ],
+        
       ),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
@@ -112,7 +71,7 @@ class _HomePageState extends State<HomePage> {
             Container(
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.only(left: 20, right: 20),
-              child: AppLargeText(size:18, text: "Solicitudes de viajes", color: Colors.black54,),
+              child: AppLargeText(size:18, text: "Mis proximos viajes", color: Colors.black54,),
             ),
             Expanded(
               child: Padding(

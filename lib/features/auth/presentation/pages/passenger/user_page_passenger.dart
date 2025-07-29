@@ -1,19 +1,20 @@
 import 'package:demo_pss/features/auth/presentation/pages/activity_page.dart';
 import 'package:demo_pss/features/auth/presentation/pages/main_page.dart';
+import 'package:demo_pss/features/auth/presentation/pages/passenger/main_page_passenger.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/app_large_text.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/custom_app_bar.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/profile_card.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/user_option.dart';
 import 'package:flutter/material.dart';
 
-class UserPage extends StatefulWidget {
-  const UserPage({super.key});
+class UserPagePassenger extends StatefulWidget {
+  const UserPagePassenger({super.key});
 
   @override
-  State<UserPage> createState() => _UserPageState();
+  State<UserPagePassenger> createState() => _UserPagePassengerState();
 }
 
-class _UserPageState extends State<UserPage> {
+class _UserPagePassengerState extends State<UserPagePassenger> {
   
 
   @override
@@ -132,7 +133,7 @@ class _UserPageState extends State<UserPage> {
                       Navigator.popUntil(
                         context,
                         (route) => route.isActive);
-                      MainPage.globalKey.currentState?.onTap(2);
+                      MainPagePassenger.globalKey.currentState?.onTap(2);
                     },
                     child: ProfileCard(
                       text: "Actividad",

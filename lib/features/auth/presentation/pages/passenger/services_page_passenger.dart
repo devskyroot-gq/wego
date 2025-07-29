@@ -3,8 +3,8 @@ import 'package:demo_pss/features/auth/presentation/widgets/app_large_text.dart'
 import 'package:demo_pss/features/auth/presentation/widgets/card_service.dart';
 import 'package:flutter/material.dart';
 
-class ServicesPage extends StatelessWidget {
-  const ServicesPage({super.key});
+class ServicesPagePassenger extends StatelessWidget {
+  const ServicesPagePassenger({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class ServicesPage extends StatelessWidget {
               ),
             ),
 
-            /*InkWell(
+            InkWell(
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => OrderTaxiPage()));
               },
@@ -64,7 +64,7 @@ class ServicesPage extends StatelessWidget {
                 bgColor: Colors.grey.shade300,
                 width: double.maxFinite,
               ),
-            ),*/
+            ),
           ],
         ),
       ),
