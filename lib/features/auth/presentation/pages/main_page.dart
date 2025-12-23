@@ -3,7 +3,6 @@ import 'package:demo_pss/features/auth/presentation/pages/activity_page.dart';
 import 'package:demo_pss/features/auth/presentation/pages/home_page.dart';
 import 'package:demo_pss/features/auth/presentation/pages/services_page.dart';
 import 'package:demo_pss/features/auth/presentation/pages/user_page.dart';
-import 'package:demo_pss/features/auth/presentation/widgets/app_large_text.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
@@ -37,12 +36,12 @@ class _MainPageState extends State<MainPage> {
       body: pages[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.background,
         iconSize: 30,
         onTap: onTap,
         currentIndex: currentIndex,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.grey,
+        selectedItemColor: AppColors.textPrimary2,
+        unselectedItemColor: AppColors.textSecondary,
         showSelectedLabels: true,
         showUnselectedLabels: true,
         elevation: 20,
@@ -53,16 +52,6 @@ class _MainPageState extends State<MainPage> {
           BottomNavigationBarItem(label: "Mi perfil", icon: Icon(Icons.person)),
         ],
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   elevation: 1,
-      //   shape: const CircleBorder(),
-      //   child: Icon(Icons.back_hand),
-      //   onPressed: () {
-          
-      //   },
-        
-      // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
     );
   }
 }

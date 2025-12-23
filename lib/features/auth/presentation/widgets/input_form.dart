@@ -72,6 +72,7 @@ class InputForm extends StatelessWidget {
         ),
       ),
       controller: controller,
+      readOnly: readOnly ?? false,
       onTap: onTap,
       initialValue: initialValue,
       keyboardType: keyboardType,

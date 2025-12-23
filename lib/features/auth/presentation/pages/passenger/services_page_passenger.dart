@@ -1,7 +1,11 @@
-import 'package:demo_pss/features/auth/presentation/pages/order_taxi_page.dart';
+import 'package:demo_pss/core/theme/app_colors.dart';
+import 'package:demo_pss/features/auth/presentation/pages/passenger/cashout_page_passenger.dart';
+import 'package:demo_pss/features/auth/presentation/pages/passenger/order_taxi_page.dart';
+import 'package:demo_pss/features/auth/presentation/pages/passenger/transfer_page_passenger.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/app_large_text.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/card_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ServicesPagePassenger extends StatelessWidget {
   const ServicesPagePassenger({super.key});
@@ -14,10 +18,11 @@ class ServicesPagePassenger extends StatelessWidget {
         title: AppLargeText(size: 24, text: "Servicios", color: Colors.black),
         shape: Border(
           bottom: BorderSide(
-            color: Colors.grey.shade300,
+            color: AppColors.bgCard,
           )
         ),
       ),
+      backgroundColor: AppColors.background,
       body: SingleChildScrollView(
         padding: EdgeInsets.only(left: 20,top: 20,right: 20),
         child: Column(
@@ -25,43 +30,33 @@ class ServicesPagePassenger extends StatelessWidget {
             AppLargeText(text: "¿Que deseas hacer?", size: 20, color: Colors.black45,),
             InkWell(
               onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text("Cash out! Disponible proximamente"),
-                    duration: Duration(seconds: 2),
-                  ),
-                );
+                Get.to(() => CashoutPagePassenger(), transition: Transition.rightToLeft);
               },
               child: CardService(text: "Cash out", 
                 icon: Icons.attach_money_outlined, 
-                bgColor: Colors.grey.shade300,
+                bgColor: AppColors.bgCard,
                 width: double.maxFinite,
               ),
             ),
 
             InkWell(
               onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text("Transferencia! Disponible proximamente"),
-                    duration: Duration(seconds: 2),
-                  ),
-                );
+                Get.to(() => TransferPagePassenger(), transition: Transition.rightToLeft);
               },
               child: CardService(text: "Transferencia", 
                 icon: Icons.mobile_screen_share_outlined, 
-                bgColor: Colors.grey.shade300,
+                bgColor: AppColors.bgCard,
                 width: double.maxFinite,
               ),
             ),
 
             InkWell(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => OrderTaxiPage()));
+                Get.to(() => OrderTaxiPage(), transition: Transition.rightToLeft);
               },
               child: CardService(text: "Pedir taxi", 
                 icon: Icons.local_taxi, 
-                bgColor: Colors.grey.shade300,
+                bgColor: AppColors.bgCard,
                 width: double.maxFinite,
               ),
             ),

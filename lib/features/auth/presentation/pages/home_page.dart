@@ -3,7 +3,6 @@ import 'package:demo_pss/features/auth/presentation/pages/post_page_detail.dart'
 import 'package:demo_pss/features/auth/presentation/widgets/activity_card.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/app_large_text.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/home_slideshow.dart';
-import 'package:demo_pss/features/auth/presentation/widgets/post_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -103,6 +102,7 @@ class _HomePageState extends State<HomePage> {
         //   ),
         // ],
       ),
+      backgroundColor: AppColors.background,
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: Column(
@@ -112,7 +112,7 @@ class _HomePageState extends State<HomePage> {
             Container(
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.only(left: 20, right: 20),
-              child: AppLargeText(size:18, text: "Solicitudes de viajes", color: Colors.black54,),
+              child: AppLargeText(size:18, text: "Solicitudes de viajes", color: AppColors.textPrimary2,),
             ),
             Expanded(
               child: Padding(
@@ -123,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => PostPageDetail(username: users[index],location: usersDestination[index],),));
+                        //Navigator.push(context, MaterialPageRoute(builder: (context) => PostPageDetail(username: users[index],location: usersDestination[index],),));
                       },
                       child: ActivityCard(
                             width: double.maxFinite,
@@ -131,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                             location: "Ub: ${usersLocation[index]}",
                             destination: "Des: ${usersDestination[index]}",
                             icon: Icons.keyboard_arrow_right,
-                            bgColor: Colors.grey.shade300,
+                            bgColor: AppColors.bgCard,
                             borderRadius: 15,
                           ),
                     );

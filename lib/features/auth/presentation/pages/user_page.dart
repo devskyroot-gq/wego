@@ -1,7 +1,5 @@
-import 'package:demo_pss/features/auth/presentation/pages/activity_page.dart';
+import 'package:demo_pss/core/theme/app_colors.dart';
 import 'package:demo_pss/features/auth/presentation/pages/main_page.dart';
-import 'package:demo_pss/features/auth/presentation/widgets/app_large_text.dart';
-import 'package:demo_pss/features/auth/presentation/widgets/custom_app_bar.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/profile_card.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/user_option.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +24,7 @@ class _UserPageState extends State<UserPage> {
           margin: EdgeInsets.only(top: 20),
           padding: EdgeInsets.only(left: 20, right: 20, top: 10),
           decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(color: Colors.grey.shade300)),
+            border: Border(bottom: BorderSide(color: AppColors.bgCard)),
           ),
           child: Column(
             children: [
@@ -40,12 +38,12 @@ class _UserPageState extends State<UserPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Nombre de usuario",
+                          "Nombre de usuarioo",
                           maxLines: 2,
                           softWrap: true,
                           style: TextStyle(
                             fontSize: 24,
-                            color: Colors.black,
+                            color: AppColors.textPrimary,
                             fontWeight: FontWeight.bold,
                             height: 0.9,
                           ),
@@ -54,7 +52,7 @@ class _UserPageState extends State<UserPage> {
                         Container(
                           width: 50,
                           decoration: BoxDecoration(
-                            color: Colors.grey.shade300,
+                            color: AppColors.bgCard,
                             borderRadius: BorderRadius.circular(5),
                           ),
                           child: Row(
@@ -73,7 +71,7 @@ class _UserPageState extends State<UserPage> {
                     width: 60,
                     height: 60,
                     child: CircleAvatar(
-                      backgroundColor: Colors.grey.shade300,
+                      backgroundColor: AppColors.bgCard,
                       child: Icon(Icons.person, size: 60),
                     ),
                   ),
@@ -107,7 +105,7 @@ class _UserPageState extends State<UserPage> {
                     child: ProfileCard(
                       text: "Ayuda",
                       icon: Icons.info,
-                      bgColor: Colors.grey.shade300,
+                      bgColor: AppColors.bgCard,
                       borderRadius: 12,
                     ),
                   ),
@@ -123,7 +121,7 @@ class _UserPageState extends State<UserPage> {
                     child: ProfileCard(
                       text: "Cartera",
                       icon: Icons.wallet,
-                      bgColor: Colors.grey.shade300,
+                      bgColor: AppColors.bgCard,
                       borderRadius: 12,
                     ),
                   ),
@@ -137,7 +135,7 @@ class _UserPageState extends State<UserPage> {
                     child: ProfileCard(
                       text: "Actividad",
                       icon: Icons.local_activity,
-                      bgColor: Colors.grey.shade300,
+                      bgColor: AppColors.bgCard,
                       borderRadius: 12,
                     ),
                   ),
@@ -153,7 +151,7 @@ class _UserPageState extends State<UserPage> {
                 title: "Ajustes",
                 subtitle: "Editar los ajustes de la aplicacion",
                 icon: Icons.settings,
-                subtitleColor: Colors.grey,
+                subtitleColor: AppColors.textSecondary,
                 size2: 12,
               ),
             ),
@@ -165,7 +163,7 @@ class _UserPageState extends State<UserPage> {
                 title: "Cuenta",
                 subtitle: "Administracion de la cuenta",
                 icon: Icons.person,
-                subtitleColor: Colors.grey,
+                subtitleColor: AppColors.textSecondary,
                 size2: 12,
               ),
             ),
@@ -177,7 +175,7 @@ class _UserPageState extends State<UserPage> {
                 title: "Acerca de nosotros",
                 subtitle: "Sobre nosotros, politicas de privacidad",
                 icon: Icons.info,
-                subtitleColor: Colors.grey,
+                subtitleColor: AppColors.textSecondary,
                 size2: 12,
               ),
             ),

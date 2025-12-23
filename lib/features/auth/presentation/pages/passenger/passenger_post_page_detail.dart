@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:demo_pss/core/theme/app_colors.dart';
+import 'package:demo_pss/core/utils/trip_functions.dart';
+import 'package:demo_pss/data/repositories/passenger_map_repository.dart';
 import 'package:demo_pss/features/auth/presentation/pages/main_page.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/app_large_text.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/custom_app_bar.dart';
@@ -9,42 +11,57 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class PostPageDetail extends StatefulWidget {
+class PassengerPostPageDetail extends StatefulWidget {
   // final String? img;
   // final String? username;
   // final String? location;
-  const PostPageDetail({super.key});
+  const PassengerPostPageDetail({super.key});
 
   @override
-  State<PostPageDetail> createState() => _PostPageDetailState();
+  State<PassengerPostPageDetail> createState() => _PassengerPostPageDetailState();
 }
 
-class _PostPageDetailState extends State<PostPageDetail> {
+class _PassengerPostPageDetailState extends State<PassengerPostPageDetail> {
   //get arguments
   final tripArgs = Get.arguments;
+  //trip functions
+  final tripFunctions = Get.find<TripFunctions>();
+  final mapFunctions = Get.find<PassengerMapRepository>();
 
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
+  //default camera position
+  static const CameraPosition _defaultCamera =
+    CameraPosition(target: LatLng(0, 0), zoom: 14.4746);
+  //camera position
+  CameraPosition? _cameraPosition;
 
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
 
-  static const CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _showBottomSheet();
     });
+    
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+
+
+  Future<void> _onMapCreated(GoogleMapController controller) async {
+    _controller.complete(controller);
+
+    final camera = await PassengerMapRepository.getInitialCameraPosition();
+
+    controller.animateCamera(CameraUpdate.newCameraPosition(camera));
+  }
+
 
    void _showBottomSheet() {
     showModalBottomSheet(
@@ -197,32 +214,51 @@ class _PostPageDetailState extends State<PostPageDetail> {
                       children: [
                         AppLargeText(
                           size: 16,
-                          text: tripArgs["tripTime"] ?? "N/A",
+                          text: tripFunctions.timeAgo(tripArgs["createdAt"]),
                           color: AppColors.textPrimary2,
                         ),
+                        tripArgs["tripType"] != "Now" ? AppLargeText(
+                          size: 16,
+                          text: "Recogida: ${tripArgs["tripTime"] ?? "N/A"}",
+                          color: AppColors.textPrimary2,
+                        ) : SizedBox(),
                         SizedBox(height: 10),
                         AppLargeText(
                           size: 16,
-                          text: "1000XAF",
+                          text: "${tripArgs["ableToPay"]} XAF",
                           color: AppColors.textSuccess,
                         ),
                       ],
                     ),
                   ),
                 ),
-                Center(
+                tripArgs["driverConfirmation"] == false
+                    ? Center(
+                  child: InkWell(
+                    onTap: () {},
+                    child: AppButton(
+                      text: "Cancelar",
+                      isIcon: false,
+                      color: AppColors.textPrimaryDark,
+                      bgColor: Colors.red,
+                      width: 200,
+                      borderRadius: 50,
+                    ),
+                  ),
+                ) : Center(
                   child: InkWell(
                     onTap: () {},
                     child: AppButton(
                       text: "Aceptar",
                       isIcon: false,
-                      color: AppColors.background,
+                      color: AppColors.textPrimaryDark,
                       bgColor: AppColors.primary,
                       width: 200,
                       borderRadius: 50,
                     ),
                   ),
                 ),
+                
               ],
             ),
           ),
@@ -241,34 +277,24 @@ class _PostPageDetailState extends State<PostPageDetail> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(double.maxFinite, 70), 
-        child: CustomAppBar(title: "Detalle"),
-      ),
-      body: GestureDetector(
-        onVerticalDragUpdate: (details) {
-          if(details.delta.dy < - 10){
-            _showBottomSheet();
-          }
-        },
-        child: GoogleMap(
-          mapType: MapType.hybrid,
-          initialCameraPosition: _kGooglePlex,
-          onMapCreated: (GoogleMapController controller) {
-            _controller.complete(controller);
-          },
+        child: CustomAppBar(
+          title: "Detalle",
+          actionbar: IconButton(
+            onPressed: () {
+              _showBottomSheet();
+            }, 
+            icon: Icon(Icons.info_outline)
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _goToTheLake,
-        label: const Text('Mostrar ubicacion'),
-        icon: const Icon(Icons.location_history),
+      body: GoogleMap(
+        onMapCreated: _onMapCreated,
+        initialCameraPosition: _defaultCamera,
+        myLocationEnabled: true,
+        zoomGesturesEnabled: true,
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
-  }
 
 }

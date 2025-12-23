@@ -39,7 +39,6 @@ class _PostPageDetailState extends State<PostPageDetail> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _showBottomSheet();
@@ -85,12 +84,12 @@ class _PostPageDetailState extends State<PostPageDetail> {
                           AppLargeText(
                             size: 16,
                             text: widget.username,
-                            color: Colors.black54,
+                            color: AppColors.textPrimary2,
                           ),
                           AppLargeText(
                             size: 14,
                             text: "Destino: ${widget.location}",
-                            color: Colors.grey,
+                            color: AppColors.textSecondary,
                           ),
                         ],
                       ),
@@ -102,7 +101,7 @@ class _PostPageDetailState extends State<PostPageDetail> {
                   child: AppLargeText(
                     size: 20,
                     text: "Tipo de solicitud de viaje",
-                    color: Colors.black54,
+                    color: AppColors.textPrimary2,
                   ),
                 ),
                 Center(
@@ -116,19 +115,19 @@ class _PostPageDetailState extends State<PostPageDetail> {
                             height: 70,
                             width: 70,
                             decoration: BoxDecoration(
-                              color: Colors.lightBlue,
+                              color: AppColors.primary,
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: Icon(
                               Icons.front_hand_outlined,
-                              color: Colors.white,
+                              color: AppColors.background,
                               size: 40,
                             ),
                           ),
                           AppLargeText(
                             size: 16,
                             text: "Ahora",
-                            color: Colors.grey,
+                            color: AppColors.textSecondary,
                           ),
                         ],
                       ),
@@ -139,19 +138,19 @@ class _PostPageDetailState extends State<PostPageDetail> {
                             height: 70,
                             width: 70,
                             decoration: BoxDecoration(
-                              color: Colors.grey,
+                              color: AppColors.textSecondary,
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: Icon(
                               Icons.timer,
-                              color: Colors.white,
+                              color: AppColors.background,
                               size: 40,
                             ),
                           ),
                           AppLargeText(
                             size: 16,
                             text: "Hoy",
-                            color: Colors.grey,
+                            color: AppColors.textSecondary,
                           ),
                         ],
                       ),
@@ -162,19 +161,19 @@ class _PostPageDetailState extends State<PostPageDetail> {
                             height: 70,
                             width: 70,
                             decoration: BoxDecoration(
-                              color: Colors.grey,
+                              color: AppColors.textSecondary,
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: Icon(
                               Icons.calendar_month,
-                              color: Colors.white,
+                              color: AppColors.background,
                               size: 40,
                             ),
                           ),
                           AppLargeText(
                             size: 16,
                             text: "Programado",
-                            color: Colors.grey,
+                            color: AppColors.textSecondary,
                           ),
                         ],
                       ),
@@ -191,12 +190,12 @@ class _PostPageDetailState extends State<PostPageDetail> {
                         AppLargeText(
                           size: 16,
                           text: "Ahora",
-                          color: Colors.black54,
+                          color: AppColors.textPrimary2,
                         ),
                         AppLargeText(
                           size: 16,
                           text: "1000XAF",
-                          color: Colors.black54,
+                          color: AppColors.textPrimary2,
                         ),
                       ],
                     ),
@@ -208,8 +207,8 @@ class _PostPageDetailState extends State<PostPageDetail> {
                     child: AppButton(
                       text: "Aceptar",
                       isIcon: false,
-                      color: AppColors.primaryDark,
-                      bgColor: Colors.blue,
+                      color: AppColors.background,
+                      bgColor: AppColors.primary,
                       width: 200,
                       borderRadius: 50,
                     ),
@@ -221,7 +220,7 @@ class _PostPageDetailState extends State<PostPageDetail> {
         );
       },
       showDragHandle: true,
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.background,
       enableDrag: true,
       isDismissible: false,
       isScrollControlled: true,
@@ -233,14 +232,17 @@ class _PostPageDetailState extends State<PostPageDetail> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(double.maxFinite, 70), 
-        child: CustomAppBar(title: "Detalle", page: MainPage()),
+        child: CustomAppBar(
+          title: "Detalle",
+          actionbar: IconButton(
+            onPressed: () {
+              _showBottomSheet();
+            }, 
+            icon: Icon(Icons.info_outline)
+            ),
+        ),
       ),
       body: GestureDetector(
-        onVerticalDragUpdate: (details) {
-          if(details.delta.dy < - 10){
-            _showBottomSheet();
-          }
-        },
         child: GoogleMap(
           mapType: MapType.hybrid,
           initialCameraPosition: _kGooglePlex,
@@ -249,10 +251,14 @@ class _PostPageDetailState extends State<PostPageDetail> {
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _goToTheLake,
-        label: const Text('Mostrar ubicacion'),
-        icon: const Icon(Icons.location_history),
+      floatingActionButton: FloatingActionButton(
+        onPressed: null,
+        child: Container(
+          padding: EdgeInsets.all(0),
+          height: 50,
+          width: 50,
+          child: Icon(Icons.center_focus_strong)
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );

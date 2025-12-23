@@ -12,6 +12,7 @@ class ActivityCard extends StatelessWidget {
   final String username;
   final String location;
   final String destination;
+  final String? timeAgo;
   const ActivityCard({
     super.key,
     this.height,
@@ -22,7 +23,7 @@ class ActivityCard extends StatelessWidget {
     this.icon = Icons.grid_3x3,
     required this.username, 
     required this.location, 
-    required this.destination,
+    required this.destination, this.timeAgo,
   });
 
   @override
@@ -54,6 +55,7 @@ class ActivityCard extends StatelessWidget {
               )
             ],
           ),
+          Text(timeAgo ?? "", style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: AppColors.textSecondary),),
           Icon(icon),
         ],
       ),

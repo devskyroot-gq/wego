@@ -36,12 +36,12 @@ class _MainPagePassengerState extends State<MainPagePassenger> {
       body: pages[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.background,
         iconSize: 30,
         onTap: onTap,
         currentIndex: currentIndex,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.grey,
+        selectedItemColor: AppColors.textPrimary,
+        unselectedItemColor: AppColors.textSecondary,
         showSelectedLabels: true,
         showUnselectedLabels: true,
         elevation: 20,
@@ -52,16 +52,6 @@ class _MainPagePassengerState extends State<MainPagePassenger> {
           BottomNavigationBarItem(label: "Mi perfil", icon: Icon(Icons.person)),
         ],
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   elevation: 1,
-      //   shape: const CircleBorder(),
-      //   child: Icon(Icons.back_hand),
-      //   onPressed: () {
-          
-      //   },
-        
-      // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
     );
   }
 }

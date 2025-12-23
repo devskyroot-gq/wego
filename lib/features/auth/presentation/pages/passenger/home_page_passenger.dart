@@ -1,11 +1,14 @@
 import 'package:demo_pss/core/theme/app_colors.dart';
-import 'package:demo_pss/features/auth/presentation/pages/post_page_detail.dart';
+import 'package:demo_pss/core/utils/trip_functions.dart';
+import 'package:demo_pss/data/repositories/auth_repositories/user_repository.dart';
+import 'package:demo_pss/data/repositories/trip_repository.dart';
+import 'package:demo_pss/features/auth/presentation/pages/passenger/passenger_notification_page.dart';
+import 'package:demo_pss/features/auth/presentation/pages/passenger/passenger_post_page_detail.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/activity_card.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/app_large_text.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/home_slideshow.dart';
-import 'package:demo_pss/features/auth/presentation/widgets/post_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
 
 class HomePagePassenger extends StatefulWidget {
   const HomePagePassenger({super.key});
@@ -14,28 +17,17 @@ class HomePagePassenger extends StatefulWidget {
   State<HomePagePassenger> createState() => _HomePagePassengerState();
 }
 
-final List<String> users = [
-  "Nombre de usuario",
-  "Nombre de usuario",
-];
-
-final List<String> usersDestination = [
-  "Los Angeles",
-  "Semu",
-];
-
-final List<String> usersLocation = [
-  "Hassan II",
-  "Sumco",
-];
-
 
 class _HomePagePassengerState extends State<HomePagePassenger> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final tripRepository = Get.find<TripRepository>();
+  //trip functions
+  final tripFunctions = Get.find<TripFunctions>();
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    tripRepository.getUserTrips(authService.value.currentUser!.uid,);
   }
 
   @override
@@ -43,7 +35,6 @@ class _HomePagePassengerState extends State<HomePagePassenger> {
     // TODO: implement dispose
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +51,45 @@ class _HomePagePassengerState extends State<HomePagePassenger> {
             color: AppColors.textPrimary,
           ),
         ),
-        
+        actions: [
+          Stack(
+            children: [
+              IconButton(
+                onPressed: () {
+                  Get.to(() => PassengerNotificationPage(), transition: Transition.rightToLeft, duration: Duration(milliseconds: 300));
+                },
+                icon: Icon(Icons.notifications),
+                color: AppColors.textPrimary2,
+                iconSize: 30,
+                splashRadius: 20,
+                padding: EdgeInsets.all(8),
+              ),
+              Positioned(
+                top: 8,
+                right: 8,
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    color: AppColors.textError,
+                    shape: BoxShape.circle,
+                  ),
+                  constraints: BoxConstraints(minWidth: 15, minHeight: 15),
+                  child: Text(
+                    "1",
+                    style: TextStyle(
+                      color: AppColors.background,
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
+      backgroundColor: AppColors.background,
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: Column(
@@ -71,36 +99,94 @@ class _HomePagePassengerState extends State<HomePagePassenger> {
             Container(
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.only(left: 20, right: 20),
-              child: AppLargeText(size:18, text: "Mis proximos viajes", color: Colors.black54,),
+              child: AppLargeText(
+                size: 18,
+                text: "Mis proximos viajes",
+                color: AppColors.textPrimary2,
+              ),
             ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20),
-                child: ListView.builder(
-                  itemCount: users.length,
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => PostPageDetail(username: users[index],location: usersDestination[index],),));
-                      },
-                      child: ActivityCard(
+                child: StreamBuilder(
+                  stream: tripRepository.getUserTrips(
+                    authService.value.currentUser!.uid,
+                  ),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.primary,
+                        ),
+                      );
+                    }
+                    if (snapshot.hasError) {
+                      print("Error al cargar los datos: ${snapshot.error}");
+                      return Center(child: Text("Error al cargar los datos"));
+                    }
+                    final trips = snapshot.data!.docs;
+                    return ListView.builder(
+                      itemCount: trips.length,
+                      scrollDirection: Axis.vertical,
+                      itemBuilder: (context, index) {
+                        //get every single trip
+                        final trip =
+                            trips[index].data() as Map<String, dynamic>;
+                        return InkWell(
+                          onTap: () async {
+                            await Get.to(
+                              () => PassengerPostPageDetail(),
+                              arguments: trip,
+                              transition: Transition.rightToLeft,
+                            );
+                          },
+                          onLongPress: () {
+                            showDialog(
+                              context: context,
+                              builder:
+                                  (context) => AlertDialog(
+                                    title: Text("Eliminar viaje"),
+                                    content: Text(
+                                      "¿Estas seguro de eliminar este viaje?",
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text("Cancelar"),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          tripRepository.deleteTripById(
+                                            trip["id"],
+                                          );
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text("Eliminar"),
+                                      ),
+                                    ],
+                                  ),
+                            );
+                          },
+                          child: ActivityCard(
                             width: double.maxFinite,
-                            username: users[index],
-                            location: "Ub: ${usersLocation[index]}",
-                            destination: "Des: ${usersDestination[index]}",
+                            username: trip["user"] ?? "Nombre",
+                            location: "Ub: ${trip["locationLabel"]}",
+                            destination: "Des: ${trip["destination"]}",
+                            timeAgo: tripFunctions.timeAgo(trip["createdAt"]),
                             icon: Icons.keyboard_arrow_right,
-                            bgColor: Colors.grey.shade300,
+                            bgColor: AppColors.bgCard,
                             borderRadius: 15,
                           ),
+                        );
+                      },
                     );
                   },
-                  
                 ),
               ),
             ),
-            
-          ]
+          ],
         ),
       ),
     );

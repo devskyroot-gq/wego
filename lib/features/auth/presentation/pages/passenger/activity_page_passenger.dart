@@ -1,3 +1,4 @@
+import 'package:demo_pss/core/theme/app_colors.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/activity_card.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/app_large_text.dart';
 import 'package:flutter/material.dart';
@@ -43,10 +44,11 @@ class _ActivityPagePassengerState extends State<ActivityPagePassenger> with Tick
         title: AppLargeText(size: 24, text: "Actividad", color: Colors.black),
         shape: Border(
           bottom: BorderSide(
-            color: Colors.grey.shade300,
+            color: AppColors.bgCard,
           )
         ),
       ),
+      backgroundColor: AppColors.background,
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         padding: EdgeInsets.only(left: 20,top: 20,right: 20),
@@ -81,7 +83,7 @@ class _ActivityPagePassengerState extends State<ActivityPagePassenger> with Tick
                           location: "Ub: ${usersLocation[index]}",
                           destination: "Des: ${usersDestination[index]}",
                           icon: Icons.access_time_filled,
-                          bgColor: Colors.grey.shade300,
+                          bgColor: AppColors.bgCard,
                           borderRadius: 15,
                         )
                       );
@@ -101,7 +103,7 @@ class _ActivityPagePassengerState extends State<ActivityPagePassenger> with Tick
                           location: "Ub: ${usersLocation[index]}",
                           destination: "Des: ${usersDestination[index]}",
                           icon: Icons.check_circle,
-                          bgColor: Colors.grey.shade300,
+                          bgColor: AppColors.bgCard,
                           borderRadius: 15,
                         )
                       );

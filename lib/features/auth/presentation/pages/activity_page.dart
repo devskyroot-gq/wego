@@ -1,3 +1,4 @@
+import 'package:demo_pss/core/theme/app_colors.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/activity_card.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/app_large_text.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class _ActivityPageState extends State<ActivityPage> with TickerProviderStateMix
         title: AppLargeText(size: 24, text: "Actividad", color: Colors.black),
         shape: Border(
           bottom: BorderSide(
-            color: Colors.grey.shade300,
+            color: AppColors.bgCard,
           )
         ),
       ),
@@ -81,7 +82,7 @@ class _ActivityPageState extends State<ActivityPage> with TickerProviderStateMix
                           location: "Ub: ${usersLocation[index]}",
                           destination: "Des: ${usersDestination[index]}",
                           icon: Icons.access_time_filled,
-                          bgColor: Colors.grey.shade300,
+                          bgColor: AppColors.bgCard,
                           borderRadius: 15,
                         )
                       );
@@ -101,7 +102,7 @@ class _ActivityPageState extends State<ActivityPage> with TickerProviderStateMix
                           location: "Ub: ${usersLocation[index]}",
                           destination: "Des: ${usersDestination[index]}",
                           icon: Icons.check_circle,
-                          bgColor: Colors.grey.shade300,
+                          bgColor: AppColors.bgCard,
                           borderRadius: 15,
                         )
                       );

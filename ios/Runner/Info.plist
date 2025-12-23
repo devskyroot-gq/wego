@@ -46,10 +46,13 @@
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<!-- permision -->
+	Add keys with explanatory messages shown to users:
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We need your location to show it on the map.</string>
+	<string>We need your location to show rides nearby and let drivers find you.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We need your location to keep tracking while the app is in the background for active trips.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app uses your location to show relevant information.</string>
+	<string>Always allow location for continuous tracking during a trip.</string>
 
 </dict>
 </plist>

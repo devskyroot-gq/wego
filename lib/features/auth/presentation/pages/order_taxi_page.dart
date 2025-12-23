@@ -1,3 +1,4 @@
+import 'package:demo_pss/core/theme/app_colors.dart';
 import 'package:demo_pss/features/auth/presentation/pages/main_page.dart';
 import 'package:demo_pss/features/auth/presentation/pages/services_page.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/app_button.dart';
@@ -67,6 +68,7 @@ class _OrderTaxiPageState extends State<OrderTaxiPage> {
         preferredSize: Size.fromHeight(70),
         child: CustomAppBar(title: "Pedir taxi"),
       ),
+      backgroundColor: AppColors.background,
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20),
         child: Column(
@@ -82,7 +84,7 @@ class _OrderTaxiPageState extends State<OrderTaxiPage> {
                     softWrap: true,
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.black54,
+                      color: AppColors.textPrimary2,
                       fontStyle: FontStyle.italic,
                       height: 0.9,
                     ),
@@ -94,7 +96,7 @@ class _OrderTaxiPageState extends State<OrderTaxiPage> {
                     keyboardType: TextInputType.text,
                     label: "Tu ubicacion actual",
                     //value: "Lugar sin nombrar",
-                    focusBorderColor: Colors.blue,
+                    focusBorderColor: AppColors.primary,
                   ),
                   SizedBox(height: 10),
                   Text(
@@ -102,7 +104,7 @@ class _OrderTaxiPageState extends State<OrderTaxiPage> {
                     softWrap: true,
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.black54,
+                      color: AppColors.textPrimary2,
                       fontStyle: FontStyle.italic,
                       height: 0.9,
                     ),
@@ -114,7 +116,7 @@ class _OrderTaxiPageState extends State<OrderTaxiPage> {
                     keyboardType: TextInputType.text,
                     label: "Hacia donde vas?",
                     //value: "",
-                    focusBorderColor: Colors.blue,
+                    focusBorderColor: AppColors.primary,
                   ),
                   SizedBox(height: 10),
                   Text(
@@ -122,7 +124,7 @@ class _OrderTaxiPageState extends State<OrderTaxiPage> {
                     softWrap: true,
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.black54,
+                      color: AppColors.textPrimary2,
                       fontStyle: FontStyle.italic,
                       height: 0.9,
                     ),
@@ -135,7 +137,7 @@ class _OrderTaxiPageState extends State<OrderTaxiPage> {
                     label: "Cuanto vas a pagar?",
                     hintText: "",
                     //value: "",
-                    focusBorderColor: Colors.blue,
+                    focusBorderColor: AppColors.primary,
                   ),
                   SizedBox(height: 10),
                   Text(
@@ -143,7 +145,7 @@ class _OrderTaxiPageState extends State<OrderTaxiPage> {
                     softWrap: true,
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.black54,
+                      color: AppColors.textPrimary2,
                       fontStyle: FontStyle.italic,
                       height: 0.9,
                     ),
@@ -173,8 +175,8 @@ class _OrderTaxiPageState extends State<OrderTaxiPage> {
                                 decoration: BoxDecoration(
                                   color:
                                       selectedNow
-                                          ? Colors.blue
-                                          : Colors.grey.shade300,
+                                          ? AppColors.primary
+                                          : AppColors.bgCard,
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                                 duration: Duration(milliseconds: 300),
@@ -182,14 +184,14 @@ class _OrderTaxiPageState extends State<OrderTaxiPage> {
                                 child: Icon(
                                   Icons.front_hand_outlined,
                                   color:
-                                      selectedNow ? Colors.white : Colors.grey,
+                                      selectedNow ? AppColors.background : AppColors.textSecondary,
                                   size: 40,
                                 ),
                               ),
                               AppLargeText(
                                 size: 14,
                                 text: "Ahora",
-                                color: Colors.grey,
+                                color: AppColors.textSecondary,
                               ),
                             ],
                           ),
@@ -214,8 +216,8 @@ class _OrderTaxiPageState extends State<OrderTaxiPage> {
                                 decoration: BoxDecoration(
                                   color:
                                       selectedToday
-                                          ? Colors.blue
-                                          : Colors.grey.shade300,
+                                          ? AppColors.primary
+                                          : AppColors.bgCard,
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                                 duration: Duration(milliseconds: 300),
@@ -224,15 +226,15 @@ class _OrderTaxiPageState extends State<OrderTaxiPage> {
                                   Icons.timer,
                                   color:
                                       selectedToday
-                                          ? Colors.white
-                                          : Colors.grey,
+                                          ? AppColors.background
+                                          : AppColors.textSecondary,
                                   size: 40,
                                 ),
                               ),
                               AppLargeText(
                                 size: 14,
                                 text: "Hoy",
-                                color: Colors.grey,
+                                color: AppColors.textSecondary,
                               ),
                             ],
                           ),
@@ -257,8 +259,8 @@ class _OrderTaxiPageState extends State<OrderTaxiPage> {
                                 decoration: BoxDecoration(
                                   color:
                                       selectedFuture
-                                          ? Colors.blue
-                                          : Colors.grey.shade300,
+                                          ? AppColors.primary
+                                          : AppColors.bgCard,
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                                 duration: Duration(milliseconds: 300),
@@ -267,15 +269,15 @@ class _OrderTaxiPageState extends State<OrderTaxiPage> {
                                   Icons.calendar_month,
                                   color:
                                       selectedFuture
-                                          ? Colors.white
-                                          : Colors.grey,
+                                          ? AppColors.background
+                                          : AppColors.textSecondary,
                                   size: 40,
                                 ),
                               ),
                               AppLargeText(
                                 size: 14,
                                 text: "Programado",
-                                color: Colors.grey,
+                                color: AppColors.textSecondary,
                               ),
                             ],
                           ),
@@ -289,7 +291,7 @@ class _OrderTaxiPageState extends State<OrderTaxiPage> {
                     softWrap: true,
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.black54,
+                      color: AppColors.textPrimary2,
                       fontStyle: FontStyle.italic,
                       height: 0.9,
                     ),
@@ -308,7 +310,7 @@ class _OrderTaxiPageState extends State<OrderTaxiPage> {
                         label: "",
                         readOnly: true,
                         //initialValue: _dateController.text,
-                        focusBorderColor: Colors.blue,
+                        focusBorderColor: AppColors.primary,
                         suffixIcon: InkWell(
                           onTap: () {
                             _selectDateTime(context);
@@ -323,10 +325,10 @@ class _OrderTaxiPageState extends State<OrderTaxiPage> {
                     child: AppButton(
                       isIcon: false,
                       text: "Enviar",
-                      color: Colors.white,
-                      bgColor: Colors.blue,
+                      color: AppColors.background,
+                      bgColor: AppColors.primary,
                       borderRadius: 20,
-                      borderColor: Colors.transparent,
+                      borderColor: AppColors.inherit,
                     ),
                   ),
                 ],

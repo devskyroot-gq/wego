@@ -2,6 +2,7 @@
     <application
         android:label="demo_pss"
         android:name="${applicationName}"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
@@ -33,9 +34,10 @@
         <!-- google map API_KEY -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="YOUR_API_KEY_HERE"/>
+            android:value="AIzaSyCsUnSxfhSK9XgWdKaEB0Hso3Ue-ngpdLA"/>
 
-
+        <!-- For foreground service if you run background tracking as a service -->
+      <uses-library android:name="org.apache.http.legacy" android:required="false" />
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and
@@ -52,5 +54,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+     <!-- Needed on Android 10+ if you want background location -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
 </manifest>

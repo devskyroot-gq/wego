@@ -1,4 +1,4 @@
-import 'package:demo_pss/features/auth/presentation/pages/order_taxi_page.dart';
+import 'package:demo_pss/core/theme/app_colors.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/app_large_text.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/card_service.dart';
 import 'package:flutter/material.dart';
@@ -14,15 +14,16 @@ class ServicesPage extends StatelessWidget {
         title: AppLargeText(size: 24, text: "Servicios", color: Colors.black),
         shape: Border(
           bottom: BorderSide(
-            color: Colors.grey.shade300,
+            color: AppColors.bgCard,
           )
         ),
       ),
+      backgroundColor: AppColors.background,
       body: SingleChildScrollView(
         padding: EdgeInsets.only(left: 20,top: 20,right: 20),
         child: Column(
           children: [
-            AppLargeText(text: "¿Que deseas hacer?", size: 20, color: Colors.black45,),
+            AppLargeText(text: "¿Que deseas hacer?", size: 20, color: AppColors.textPrimary2,),
             InkWell(
               onTap: () {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -34,7 +35,7 @@ class ServicesPage extends StatelessWidget {
               },
               child: CardService(text: "Cash out", 
                 icon: Icons.attach_money_outlined, 
-                bgColor: Colors.grey.shade300,
+                bgColor: AppColors.bgCard,
                 width: double.maxFinite,
               ),
             ),
@@ -50,7 +51,7 @@ class ServicesPage extends StatelessWidget {
               },
               child: CardService(text: "Transferencia", 
                 icon: Icons.mobile_screen_share_outlined, 
-                bgColor: Colors.grey.shade300,
+                bgColor: AppColors.bgCard,
                 width: double.maxFinite,
               ),
             ),
