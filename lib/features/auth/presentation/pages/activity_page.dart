@@ -1,7 +1,12 @@
 import 'package:demo_pss/core/theme/app_colors.dart';
+import 'package:demo_pss/core/utils/trip_functions.dart';
+import 'package:demo_pss/data/repositories/auth_repositories/user_repository.dart';
+import 'package:demo_pss/data/repositories/passenger_map_repository.dart';
+import 'package:demo_pss/data/repositories/trip_repository.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/activity_card.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/app_large_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ActivityPage extends StatefulWidget {
   const ActivityPage({super.key});
@@ -31,7 +36,10 @@ final List<String> usersDestination = [
 ];
 
 class _ActivityPageState extends State<ActivityPage> with TickerProviderStateMixin {
-
+  final tripRepository = Get.find<TripRepository>();
+  final mapFunction = Get.find<PassengerMapRepository>();
+  //trip functions
+  final tripFunctions = Get.find<TripFunctions>();
 
   @override
   Widget build(BuildContext context) {
@@ -65,50 +73,57 @@ class _ActivityPageState extends State<ActivityPage> with TickerProviderStateMix
               height: double.maxFinite,
               width: double.maxFinite,
               padding: EdgeInsets.all(0),
-              child: TabBarView(
-                controller: tabController,
-                children: [
-                  ListView.builder(
-                    itemCount: users.length,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          
-                        },
-                        child: ActivityCard(
-                          width: double.maxFinite,
-                          username: users[index],
-                          location: "Ub: ${usersLocation[index]}",
-                          destination: "Des: ${usersDestination[index]}",
-                          icon: Icons.access_time_filled,
-                          bgColor: AppColors.bgCard,
-                          borderRadius: 15,
-                        )
-                      );
-                    },
+              child: StreamBuilder(
+                stream: tripRepository.getUserTrips(
+                    authService.value.currentUser!.uid,
                   ),
-                  ListView.builder(
-                    itemCount: users.length,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          
+                builder: (context, asyncSnapshot) {
+                  return TabBarView(
+                    controller: tabController,
+                    children: [
+                      ListView.builder(
+                        itemCount: users.length,
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              
+                            },
+                            child: ActivityCard(
+                              width: double.maxFinite,
+                              username: users[index],
+                              location: "Ub: ${usersLocation[index]}",
+                              destination: "Des: ${usersDestination[index]}",
+                              icon: Icons.access_time_filled,
+                              bgColor: AppColors.bgCard,
+                              borderRadius: 15,
+                            )
+                          );
                         },
-                        child: ActivityCard(
-                          width: double.maxFinite,
-                          username: users[index],
-                          location: "Ub: ${usersLocation[index]}",
-                          destination: "Des: ${usersDestination[index]}",
-                          icon: Icons.check_circle,
-                          bgColor: AppColors.bgCard,
-                          borderRadius: 15,
-                        )
-                      );
-                    },
-                  ),
-                ],
+                      ),
+                      ListView.builder(
+                        itemCount: users.length,
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              
+                            },
+                            child: ActivityCard(
+                              width: double.maxFinite,
+                              username: users[index],
+                              location: "Ub: ${usersLocation[index]}",
+                              destination: "Des: ${usersDestination[index]}",
+                              icon: Icons.check_circle,
+                              bgColor: AppColors.bgCard,
+                              borderRadius: 15,
+                            )
+                          );
+                        },
+                      ),
+                    ],
+                  );
+                }
               ),
             )
            ],

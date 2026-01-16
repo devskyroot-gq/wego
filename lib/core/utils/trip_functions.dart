@@ -8,12 +8,12 @@ class TripFunctions {
     final diff = DateTime.now().difference(date);
 
     if (diff.inMinutes < 1) return 'Ahora';
-    if (diff.inMinutes < 60) return 'Hace ${diff.inMinutes} mins';
-    if (diff.inHours < 24) return 'Hace ${diff.inHours} horas';
+    if (diff.inMinutes < 60) return 'Hace ${diff.inMinutes}mins';
+    if (diff.inHours < 24) return 'Hace ${diff.inHours}h';
     if (diff.inDays == 1) return 'Ayer';
-    if (diff.inDays < 30) return 'Hace ${diff.inDays} días';
-    if (diff.inDays < 365) return 'Hace ${diff.inDays ~/ 30} meses';
-    return 'Hace ${diff.inDays ~/ 365} años';
+    if (diff.inDays < 30) return 'Hace ${diff.inDays}d';
+    if (diff.inDays < 365) return 'Hace ${diff.inDays ~/ 30}m';
+    return 'Hace ${diff.inDays ~/ 365}a';
   }
 
   //get time 

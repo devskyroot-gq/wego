@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-class InputForm extends StatelessWidget {
+class MoneyInputForm extends StatelessWidget {
   final String label;
   final String? hintText;
   final double? borderRadius;
@@ -16,14 +17,15 @@ class InputForm extends StatelessWidget {
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final bool? readOnly;
-  final String? initialValue;
   final String? value;
   final void Function()? onTap;
   final ValueChanged<String>? onChanged;
+  final List<TextInputFormatter>? inputFormatters;
 
 
 
-  const InputForm({super.key, 
+
+  const MoneyInputForm({super.key, 
     required this.label, 
     this.hintText, 
     this.borderRadius, 
@@ -32,19 +34,18 @@ class InputForm extends StatelessWidget {
     this.labelColor, 
     this.hintColor, 
     required this.controller, 
-    this.keyboardType = TextInputType.text, 
+    this.keyboardType = TextInputType.number, 
     this.obscureText, 
     this.validator, 
     this.suffixIcon, 
     this.prefixIcon, 
     this.labelSize, 
-    this.readOnly=false, 
-    this.initialValue, 
-    this.value, this.onTap, this.onChanged, });
+    this.readOnly=false,
+    this.value, this.onTap, this.onChanged, this.inputFormatters, });
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return TextField(
       decoration: InputDecoration(
         filled: true,
         fillColor: fillColor ?? Colors.grey.shade300,
@@ -75,12 +76,11 @@ class InputForm extends StatelessWidget {
       ),
       controller: controller,
       readOnly: readOnly ?? false,
+      inputFormatters: inputFormatters,
       onTap: onTap,
       onChanged: onChanged,
-      initialValue: initialValue,
       keyboardType: keyboardType,
       obscureText: obscureText ?? false,
-      validator: validator,
       style: TextStyle(fontSize: 18),
     );
   }

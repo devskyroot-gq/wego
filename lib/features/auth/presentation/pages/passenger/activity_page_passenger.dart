@@ -1,7 +1,13 @@
 import 'package:demo_pss/core/theme/app_colors.dart';
+import 'package:demo_pss/core/utils/trip_functions.dart';
+import 'package:demo_pss/data/repositories/auth_repositories/user_repository.dart';
+import 'package:demo_pss/data/repositories/passenger_map_repository.dart';
+import 'package:demo_pss/data/repositories/trip_repository.dart';
+import 'package:demo_pss/features/auth/presentation/pages/passenger/passenger_post_page_detail.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/activity_card.dart';
 import 'package:demo_pss/features/auth/presentation/widgets/app_large_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ActivityPagePassenger extends StatefulWidget {
   const ActivityPagePassenger({super.key});
@@ -31,7 +37,10 @@ final List<String> usersDestination = [
 ];
 
 class _ActivityPagePassengerState extends State<ActivityPagePassenger> with TickerProviderStateMixin {
-
+  final tripRepository = Get.find<TripRepository>();
+  final mapFunction = Get.find<PassengerMapRepository>();
+  //trip functions
+  final tripFunctions = Get.find<TripFunctions>();
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +66,10 @@ class _ActivityPagePassengerState extends State<ActivityPagePassenger> with Tick
             Container(
               child: TabBar(
                 controller: tabController,
+                indicatorColor: AppColors.primary,
+                dividerColor: AppColors.bgCard,
+                labelColor: AppColors.textPrimary,
+                unselectedLabelColor: AppColors.textPrimary2,
                 tabs: [
                 Tab(text: "Pendiente",),
                 Tab(text: "Finalizado",)
@@ -69,45 +82,155 @@ class _ActivityPagePassengerState extends State<ActivityPagePassenger> with Tick
               child: TabBarView(
                 controller: tabController,
                 children: [
-                  ListView.builder(
-                    itemCount: users.length,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          
+                  StreamBuilder(
+                    stream: tripRepository.getPendingTrips(
+                        authService.value.currentUser!.uid,
+                      ),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            color: AppColors.primary,
+                          ),
+                        );
+                      }
+                      if (snapshot.hasError) {
+                        print("Error al cargar los datos: ${snapshot.error}");
+                        return Center(child: Text("Error al cargar los datos"));
+                      }
+                      final trips = snapshot.data!.docs;
+                      return ListView.builder(
+                        itemCount: trips.length,
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: (context, index) {
+                          //get every single trip
+                          final $trip = trips[index].data() as Map<String, dynamic>;
+                          return InkWell(
+                            onTap: () async {
+                              await Get.to(
+                                () => PassengerPostPageDetail(),
+                                arguments: $trip,
+                                transition: Transition.rightToLeft,
+                              );
+                            },
+                            onLongPress: () {
+                              showDialog(
+                                context: context,
+                                builder:
+                                    (context) => AlertDialog(
+                                      title: Text("Eliminar viaje"),
+                                      content: Text(
+                                        "¿Estas seguro de eliminar este viaje?",
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text("Cancelar"),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            tripRepository.deleteTripById(
+                                              $trip["id"],
+                                            );
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text("Eliminar"),
+                                        ),
+                                      ],
+                                    ),
+                              );
+                            },
+                            child: ActivityCard(
+                              width: double.maxFinite,
+                              username: $trip["user"],
+                              location: "Ub: ${$trip["sourceLabel"] ?? "N/A"}",
+                              destination: "Des: ${$trip["destinationLabel"] ?? "N/A"}",
+                              timeAgo: tripFunctions.timeAgo($trip["createdAt"]),
+                              icon: Icons.access_time_filled,
+                              bgColor: AppColors.bgCard,
+                              borderRadius: 15,
+                            )
+                          );
                         },
-                        child: ActivityCard(
-                          width: double.maxFinite,
-                          username: users[index],
-                          location: "Ub: ${usersLocation[index]}",
-                          destination: "Des: ${usersDestination[index]}",
-                          icon: Icons.access_time_filled,
-                          bgColor: AppColors.bgCard,
-                          borderRadius: 15,
-                        )
                       );
-                    },
+                    }
                   ),
-                  ListView.builder(
-                    itemCount: users.length,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          
+                  StreamBuilder(
+                    stream: tripRepository.getFinishedTrips(
+                        authService.value.currentUser!.uid,
+                      ),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            color: AppColors.primary,
+                          ),
+                        );
+                      }
+                      if (snapshot.hasError) {
+                        print("Error al cargar los datos: ${snapshot.error}");
+                        return Center(child: Text("Error al cargar los datos"));
+                      }
+                      final trips = snapshot.data!.docs;
+                      return ListView.builder(
+                        itemCount: trips.length,
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: (context, index) {
+                          //get every single trip
+                          final $trip = trips[index].data() as Map<String, dynamic>;
+                          return InkWell(
+                            onTap: () async {
+                              await Get.to(
+                                () => PassengerPostPageDetail(),
+                                arguments: $trip,
+                                transition: Transition.rightToLeft,
+                              );
+                            },
+                            onLongPress: () {
+                              showDialog(
+                                context: context,
+                                builder:
+                                    (context) => AlertDialog(
+                                      title: Text("Eliminar viaje"),
+                                      content: Text(
+                                        "¿Estas seguro de eliminar este viaje?",
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text("Cancelar"),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            tripRepository.deleteTripById(
+                                              $trip["id"],
+                                            );
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text("Eliminar"),
+                                        ),
+                                      ],
+                                    ),
+                              );
+                            },
+                            child: ActivityCard(
+                              width: double.maxFinite,
+                              username: $trip["user"],
+                              location: "Ub: ${$trip["sourceLabel"] ?? "N/A"}",
+                              destination: "Des: ${$trip["destinationLabel"] ?? "N/A"}",
+                              timeAgo: tripFunctions.timeAgo($trip["createdAt"]),
+                              icon: Icons.check_circle,
+                              bgColor: AppColors.bgCard,
+                              borderRadius: 15,
+                            )
+                          );
                         },
-                        child: ActivityCard(
-                          width: double.maxFinite,
-                          username: users[index],
-                          location: "Ub: ${usersLocation[index]}",
-                          destination: "Des: ${usersDestination[index]}",
-                          icon: Icons.check_circle,
-                          bgColor: AppColors.bgCard,
-                          borderRadius: 15,
-                        )
                       );
-                    },
+                    }
                   ),
                 ],
               ),

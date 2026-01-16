@@ -1,13 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo_pss/data/repositories/auth_repositories/user_repository.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class OrderTaxiController extends GetxController {
   var currentUser = authService.value.getCurrentUserData();
-  final latitude = "";
-  final length = "";
-  final locationLabel = TextEditingController();
-  final destination = TextEditingController();
+  GeoPoint? source;
+  GeoPoint? destination;
+  final sourceLabel = TextEditingController();
+  final destinationLabel = TextEditingController();
   final ableToPay = TextEditingController();
   final travelTime = TextEditingController();
   final time = TextEditingController();
@@ -20,8 +24,8 @@ class OrderTaxiController extends GetxController {
   
   //reset form
   resetForm(){
-    locationLabel.clear();
-    destination.clear();
+    sourceLabel.clear();
+    destinationLabel.clear();
     ableToPay.clear();
     travelTime.clear();
   }

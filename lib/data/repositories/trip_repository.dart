@@ -54,6 +54,35 @@ Stream<QuerySnapshot> getAllUserTrips(String userId) {
       .snapshots();
 }
 
+//get all unfinished user trips
+Stream<QuerySnapshot> getPendingTrips(String userId) {
+  return db
+      .collection('Trips')
+      .where("userId", isEqualTo: userId)
+      .where("tripFinished", isEqualTo: false)
+      .orderBy("createdAt", descending: true)
+      .snapshots();
+}
+
+//get all unfinished user trips
+Stream<QuerySnapshot> getFinishedTrips(String userId) {
+  return db
+      .collection('Trips')
+      .where("userId", isEqualTo: userId)
+      .where("tripFinished", isEqualTo: true)
+      .orderBy("createdAt", descending: true)
+      .snapshots();
+}
+
+//get trip by Id
+Stream<QuerySnapshot> getTripById(String tripId) {
+  return db
+      .collection('Trips')
+      .where("id", isEqualTo: tripId)
+      .orderBy("createdAt", descending: true)
+      .snapshots();
+}
+
 //delete trip
 Future<void> deleteTripById(String tripId) async{
   await db.collection("Trips").where(

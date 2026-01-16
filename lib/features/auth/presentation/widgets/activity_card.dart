@@ -30,7 +30,6 @@ class ActivityCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      height: height,
       padding: EdgeInsets.all(10),
       margin: EdgeInsets.only(top: 10, bottom: 10),
       decoration: BoxDecoration(
@@ -39,24 +38,35 @@ class ActivityCard extends StatelessWidget {
         border: Border.all(color: borderColor!, style: BorderStyle.solid),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
               CircleAvatar(backgroundImage: AssetImage("assets/images/user.png"),),
               SizedBox(width: 10,),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(username, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppColors.textPrimary2),),
-                  Text(location, style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: AppColors.textPrimary2),),
-                  Text(destination, style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: AppColors.textPrimary2),)
-                ],
+              Container(
+                width: MediaQuery.of(context).size.width/2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(username, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppColors.textPrimary2),softWrap: true,),
+                    Text(location, style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: AppColors.textPrimary2), softWrap: true,),
+                    Text(destination, style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: AppColors.textPrimary2), softWrap: true, maxLines: 2,)
+                  ],
+                ),
               )
             ],
           ),
-          Text(timeAgo ?? "", style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: AppColors.textSecondary),),
-          Icon(icon),
+          SizedBox(width: 10,),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(icon),
+                Text(timeAgo ?? "", style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: AppColors.textSecondary),),
+              ],
+            ),
+          )
         ],
       ),
     );

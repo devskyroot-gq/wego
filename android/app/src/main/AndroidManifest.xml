@@ -3,7 +3,9 @@
         android:label="demo_pss"
         android:name="${applicationName}"
         android:hardwareAccelerated="true"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:enableOnBackInvokedCallback="true"
+        android:supportsRtl="true">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -34,7 +36,7 @@
         <!-- google map API_KEY -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCsUnSxfhSK9XgWdKaEB0Hso3Ue-ngpdLA"/>
+            android:value="AIzaSyA9Rn_mn5bi46qGLbAwZuaPsOZPgybXNNM"/>
 
         <!-- For foreground service if you run background tracking as a service -->
       <uses-library android:name="org.apache.http.legacy" android:required="false" />

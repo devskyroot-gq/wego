@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo_pss/core/theme/app_colors.dart';
 import 'package:demo_pss/core/utils/trip_functions.dart';
 import 'package:demo_pss/data/repositories/auth_repositories/user_repository.dart';
+import 'package:demo_pss/data/repositories/passenger_map_repository.dart';
 import 'package:demo_pss/data/repositories/trip_repository.dart';
 import 'package:demo_pss/features/auth/presentation/pages/passenger/passenger_notification_page.dart';
 import 'package:demo_pss/features/auth/presentation/pages/passenger/passenger_post_page_detail.dart';
@@ -21,6 +23,7 @@ class HomePagePassenger extends StatefulWidget {
 class _HomePagePassengerState extends State<HomePagePassenger> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final tripRepository = Get.find<TripRepository>();
+  final mapFunction = Get.find<PassengerMapRepository>();
   //trip functions
   final tripFunctions = Get.find<TripFunctions>();
 
@@ -32,7 +35,6 @@ class _HomePagePassengerState extends State<HomePagePassenger> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -172,10 +174,10 @@ class _HomePagePassengerState extends State<HomePagePassenger> {
                           child: ActivityCard(
                             width: double.maxFinite,
                             username: trip["user"] ?? "Nombre",
-                            location: "Ub: ${trip["locationLabel"]}",
-                            destination: "Des: ${trip["destination"]}",
+                            location: "Ub: ${trip["sourceLabel"]}",
+                            destination: "Des: ${trip["destinationLabel"]}",
                             timeAgo: tripFunctions.timeAgo(trip["createdAt"]),
-                            icon: Icons.keyboard_arrow_right,
+                            icon: Icons.timer_rounded,
                             bgColor: AppColors.bgCard,
                             borderRadius: 15,
                           ),
